@@ -1,0 +1,54 @@
+﻿@model UI.Models.ViewModels.Customers.CustomerListViewModel
+
+    <div class="pb-3">
+        <a asp-controller="Customers" asp-action="Add">
+            Add Customer
+        </a>
+    </div>
+
+    @if (Model.Customers != null && Model.Customers.Count() > 0)
+    {
+        <table class="table table-striped border table-sm">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Customers[0].CustomerId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Customers[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Customers[0].CompanyRegistrationNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Customers[0].IsActive)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Customers)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.CustomerId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.CompanyRegistrationNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.IsActive)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>
+            No customers found.
+        </div>
+    }
