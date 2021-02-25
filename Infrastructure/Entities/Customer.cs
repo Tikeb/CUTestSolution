@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Entities
 {
@@ -18,5 +19,11 @@ namespace Infrastructure.Entities
 
         [Required]
         public bool IsActive { get; set; }
+
+        // AW: Added new fields
+        [Required]
+        public DateTime IncorporationDate { get; set; }
+
+        public decimal Turnover { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace UI.Controllers
                                 CustomerId = cr.CustomerId,
                                 Name = cr.Name,
                                 CompanyRegistrationNumber = cr.CompanyRegistrationNumber,
-                                IsActive = cr.IsActive,
+                                IsActive = cr.IsActive
                             });
                     }
                 }
@@ -63,7 +63,7 @@ namespace UI.Controllers
         [HttpGet("Add")]
         public IActionResult Add()
         {
-            return View();
+            return View("AddUpdate");
         }
 
         [HttpPost("Add")]
@@ -74,6 +74,8 @@ namespace UI.Controllers
                 Name = customerViewModel.Name,
                 CompanyRegistrationNumber = customerViewModel.CompanyRegistrationNumber,
                 IsActive = customerViewModel.IsActive,
+                IncorporationDate = customerViewModel.IncorporationDate.Value,
+                Turnover = customerViewModel.Turnover.HasValue ? customerViewModel.Turnover.Value : 0
             };
 
             APICallResult<CustomerResponse> apiCallResult = await this.HttpClientService.MakeRequest<CustomerResponse>(
@@ -90,7 +92,50 @@ namespace UI.Controllers
                 // Display error.
             }
 
-            return View("~/Views/Customers/Add.cshtml");
+            return View("~/Views/Customers/AddUpdate.cshtml");
+        }
+
+        [HttpGet("Update")]
+        public IActionResult Update(int customerId)
+        {
+            var model = new CustomerViewModel();
+            return View("AddUpdate", model);
+        }
+
+        [HttpGet("GetCustomerById")]
+        public async Task<IActionResult> GetCustomerById(int customerId)
+        {
+            CustomerViewModel customerViewModel;
+
+            APICallResult<CustomerResponse> apiCallResult =
+                await this.HttpClientService.MakeRequest<CustomerResponse>(HttpMethod.Get, string.Format("http://localhost:50781/api/customers/GetById/?customerId={0}", customerId))
+                .ConfigureAwait(true);
+
+            if (apiCallResult.IsSuccessStatusCode)
+            {
+                if (apiCallResult.ResultObject != null)
+                {
+                    var cr = apiCallResult.ResultObject;
+
+                    customerViewModel = new CustomerViewModel
+                    {
+                        CustomerId = cr.CustomerId,
+                        Name = cr.Name,
+                        CompanyRegistrationNumber = cr.CompanyRegistrationNumber,
+                        IsActive = cr.IsActive,
+                        IncorporationDate = cr.IncorporationDate,
+                        Turnover = cr.Turnover
+                    };
+
+                    return View("~/Views/Customers/View.cshtml", customerViewModel);
+                }
+            }
+            else
+            {
+                // Display error.
+            }
+
+            return View("~/Views/Customers/AddUpdate.cshtml");
         }
 
         private string Serialize<T>(T objectToBeSerialized)

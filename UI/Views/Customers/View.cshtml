@@ -1,0 +1,28 @@
+﻿@model UI.Models.ViewModels.Customers.CustomerViewModel
+
+<form asp-controller="customers" asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="CustomerId" class="control-label"></label>
+        <span>@Model.CustomerId</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <span>@Model.Name</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CompanyRegistrationNumber" class="control-label"></label>
+        <span>@Model.CompanyRegistrationNumber</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <span>@Model.IsActive</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IncorporationDate" class="control-label"></label>
+        <span>@Model.IncorporationDate</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Turnover" class="control-label"></label>
+        <span>@Model.Turnover</span>
+    </div>
+</form>

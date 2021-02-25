@@ -1,4 +1,6 @@
-﻿namespace Common.Models.Responses.Customer
+﻿using System;
+
+namespace Common.Models.Responses.Customer
 {
     public class CustomerResponse
     {
@@ -9,5 +11,9 @@
         public string CompanyRegistrationNumber { get; set; }
 
         public bool IsActive { get; set; }
+
+        public DateTime IncorporationDate { get; set; }
+
+        public decimal Turnover { get; set; }
     }
 }

@@ -23,6 +23,8 @@
                     <th>
                         @Html.DisplayNameFor(m => m.Customers[0].IsActive)
                     </th>
+                    <th>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +42,11 @@
                         </td>
                         <td>
                             @Html.DisplayFor(m => item.IsActive)
+                        </td>
+                        <td>
+                            <a asp-controller="Customers" asp-action="GetCustomerById" asp-route-customerId="@item.CustomerId">
+                                View x
+                            </a>
                         </td>
                     </tr>
                 }
